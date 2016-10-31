@@ -1,0 +1,103 @@
+<!-- template per l'update dell'item -->
+
+<md-content class="md-flex" layout-padding="">
+
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h1 >Update Task</h1>
+        </div>
+      </md-toolbar>
+        
+    
+        
+        <md-input-container class="md-block">
+          <!-- Use floating label instead of placeholder   title, priority, done, date -->
+          <label>Title</label>
+        <!--  <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon> -->
+          <input ng-init="title=ctrl.selItem.title" type="text" ng-model="title" required>
+        </md-input-container>
+
+
+        <md-input-container class="md-block">
+          <!-- Use floating label instead of placeholder   title, priority, done, date -->
+          <label>Description</label>
+        <!--  <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon> -->
+          <input ng-init="description=ctrl.selItem.description" ng-model="description" type="text">
+        </md-input-container>
+
+          <md-input-container class="md-block">
+            <label>Priority</label>
+                <md-select ng-init="priority=ctrl.selItem.priority" ng-model="priority" placeholder="Select a priority">
+                      <md-option ng-value="p.value" ng-repeat="p in ctrl.priorities">
+                            {{ p.title }}
+                      </md-option>
+                </md-select>
+          </md-input-container>
+
+      <md-input-container class="md-block">
+            <md-checkbox class="orange"ng-init="done=ctrl.selItem.done" ng-model="done" aria-label="Done">
+                Done :? {{ done }}
+            </md-checkbox>
+        </md-input-container>
+
+        <md-input-container  class="md-block">
+            <md-datepicker ng-init="date=ctrl.selItem.date" ng-model="date" md-placeholder="Enter date" required></md-datepicker>
+          <!--<md-icon md-svg-src="img/icons/ic_place_24px.svg" style="display:inline-block;"></md-icon>-->
+        </md-input-container>
+
+
+        <md-input-container  class="md-block">
+            <label>Work estimated time</label>
+        <!--  <md-icon md-svg-src="img/icons/ic_phone_24px.svg"></md-icon> -->
+          <input ng-init="eworks=ctrl.selItem.eworks" ng-model="eworks" type="number" required>
+        </md-input-container>
+
+
+
+    <!-- AGGIUNTA TAGS-->
+      <label>Tags:</label>
+          <md-input-container class="md-block">
+            <md-checkbox class="orange" ng-init="tags.family=ctrl.selItem.tags.family" ng-model="tags.family" aria-label="Family">
+                Family :? {{tags.family}}
+            </md-checkbox>
+        </md-input-container>
+
+          <md-input-container class="md-block">
+            <md-checkbox class="orange" ng-init="tags.friends=ctrl.selItem.tags.friends" ng-model="tags.friends" aria-label="Friends">
+                Friends :? {{tags.friends }}
+            </md-checkbox>
+        </md-input-container>
+
+          <md-input-container class="md-block">
+            <md-checkbox class="orange" ng-init="tags.work=ctrl.selItem.tags.work" ng-model="tags.work" aria-label="Work">
+                Work :? {{tags.work }}
+            </md-checkbox>
+        </md-input-container>
+
+          <md-input-container class="md-block">
+            <md-checkbox class="orange" ng-init="tags.fun=ctrl.selItem.tags.fun" ng-model="tags.fun" aria-label="Fun">
+                Fun :? {{tags.fun }}
+            </md-checkbox>
+
+    <!-- --> 
+
+
+        </md-input-container>
+
+
+    <!-- Fine aggiunta tags-->
+
+
+
+
+    <md-dialog-actions layout="row">
+        <md-button ng-click="ctrl.cancel()">
+          Cancel
+          </md-button>
+        <!--  <md-button ng-click="hide();ctrl.createItem(title, priority, done, myDate)"> -->
+          <md-button ng-click="ctrl.update(title, description,priority, done, date, eworks,tags)" 
+          ng-disabled="title == undefined || date == undefined || eworks == undefined" > 
+          Update
+          </md-button>
+    </md-dialog-actions>
+  </md-content>

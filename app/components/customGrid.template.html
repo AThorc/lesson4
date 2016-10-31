@@ -1,0 +1,124 @@
+<md-content class="md-padding scroll tab-content">
+
+      <md-input-container>
+            <label>Search task for title:</label>
+            <input type="search" ng-model="customGridCtrl.search" placeholder="search task for title..." aria-label="search tasks" />
+             
+    </md-input-container>
+
+
+ <md-input-container style="margin-left: 100px;">
+
+     <h3 style="color:orange">Sorting task for: <span class="radioValue">{{ sorting }}</h3>
+
+    <md-radio-group ng-model="sorting">
+      <md-radio-button value="priority">Priority</md-radio-button>  
+      <md-radio-button value="title">Title</md-radio-button>
+      <md-radio-button value="date"> Date</md-radio-button>
+      <md-radio-button value="eworks">Estimated work</md-radio-button>
+
+    </md-radio-group>
+
+  </md-input-container>
+
+
+  
+
+  <md-grid-list md-cols="2" md-cols-sm="2"   md-cols-gt-md="4"    md-cols-gt-lg="6"
+  md-row-height-gt-md="7:6" md-row-height="4:3" md-gutter="8px" md-gutter-gt-sm="4px">
+                                                                                                                                                                
+
+    <md-grid-tile md-theme-watch=""  ng-repeat="item in customGridCtrl.buildGridModel(customGridCtrl.items)| filter: customGridCtrl.filterFunction 
+          | filter: { title: customGridCtrl.search }
+          | orderBy:sorting" 
+          ng-mouseleave="customGridCtrl.clickFab =0"
+          style="background-color:{{item.background}}" ng-click="customGridCtrl.toggleSelection(item)"
+            ng-class="{'selected': customGridCtrl.selectedItem == item, 'selected': customGridCtrl.listSelected.indexOf(item) !=-1,
+                        'selectAll':  customGridCtrl.listAll.indexOf(item) != -1}"
+            md-colspan="{{item.col}}" md-colspan-sm="{{item.col}}" md-colspan-xs="{{item.col}}" 
+            md-rowspan="{{item.row}}" md-rowspan-sm="{{item.row}}" md-rowspan-xs="{{item.row}}" 
+            md-colspan-gt-sm="{{item.col}}"   md-rowspan-gt-sm="{{item.row}}">
+
+
+      <md-grid-content>
+        
+
+        <md-grid-actions>                                                                                       
+
+             <p style="position:absolute;top:1px;left:2px"> <b2 ng-if="item.tags!=undefined">#Tags</b2>
+              <md-icon ng-if="item.tags.family==true" md-svg-src="/Icons_tag/family.svg" class="family"  ></md-icon>    
+             <md-icon  ng-if="item.tags.friends==true" md-svg-src="/Icons_tag/friends.svg" class="friends"></md-icon>
+             <md-icon ng-if="item.tags.work==true" md-svg-src="/Icons_tag/work.svg" class="work "></md-icon>
+             <md-icon ng-if="item.tags.fun==true" md-svg-src="/Icons_tag/fun.svg"  class="fun"></md-icon>
+             </p>
+
+             <md-checkbox class="orange"
+                  ng-model="item.done" ng-change="customGridCtrl.checkStateChanged()"  style="position:absolute;top:25px;right:10px"
+                    >
+              </md-checkbox> 
+
+             
+                           <p style="position:absolute;top:100px;left:2px" ><b2> Deadline:</b2> 
+                           <normal2 >{{item.date | date: "dd-MM-yyyy"}} </normal2> 
+
+                           </p>
+
+                          <md-button style="position:absolute;top:105px;right:5px" ng-click="customGridCtrl.changePriority(item)" class="md-icon-button" aria-label="Priority">
+                             <md-icon style="color: black" ng-if="item.priority == -1">low_priority</md-icon>
+                             <md-icon style="color: black" ng-if="item.priority == 0">label</md-icon>
+                             <md-icon style="color: black" ng-if="item.priority == 1">priority_high</md-icon>
+                        </md-button>  
+                          <p style="position:absolute;left:2px" > <b2>Estimated work: </b2> <normal2>{{item.eworks}} </normal2> </p>
+
+                <md-grid-tile-footer 
+                  hide-xs layout-align="center center" style="background-color:#476CB2"
+                  ng-class="{'selected': customGridCtrl.selectedItem == item, 'selected': customGridCtrl.listSelected.indexOf(item) !=-1,
+                                  'selectAll':  customGridCtrl.listAll.indexOf(item) != -1}">
+                    <h3 style="font-size:20px"> {{item.title}}</h3>
+                    
+                </md-grid-tile-footer>
+
+           </md-grid-actions>
+       </md-grid-content>
+
+
+
+
+        <!--///// per il tasto-->
+
+
+        <md-fab-speed-dial
+          ng-cloak="" md-open="customGridCtrl.isOpen"  style="position:absolute;bottom:10px;right:25px;"
+            md-direction="{{customGridCtrl.selectedDirection}}" ng-class="customGridCtrl.selectedMode">
+                <md-fab-trigger ng-cloak="">
+                  <md-button  aria-label="menu" class="md-fab md-warn" ng-mouseover="customGridCtrl.clickFab = 1">
+                    <md-icon >menu</md-icon>
+                  </md-button>
+                </md-fab-trigger>
+
+                <md-fab-actions  ng-cloak="" ng-if="customGridCtrl.selectedItem == item && customGridCtrl.clickFab == 1">
+                  <md-button  ng-cloak="" aria-label="Delete" class="md-fab md-raised md-mini" ng-click="customGridCtrl.auxDel = 1 ; customGridCtrl.delete($event); customGridCtrl.clickFab =0">
+                    <md-icon  ng-cloak="" >delete</md-icon>
+                  </md-button>
+                  <md-button ng-cloak="" aria-label="Update" class="md-fab md-raised md-mini" ng-click="customGridCtrl.auxDel = 1;customGridCtrl.update($event); customGridCtrl.clickFab =0">
+                    <md-icon ng-cloak="" > update</md-icon>
+                  </md-button>
+                </md-fab-actions>
+                
+          </md-fab-speed-dial>
+
+
+
+
+        <!--    -->
+
+
+        <!-- //////per il tasto-->
+
+
+
+    </md-grid-tile>
+
+  </md-grid-list>
+
+</md-content>

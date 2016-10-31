@@ -1,0 +1,218 @@
+/* Style for add button */
+
+.add-button {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+}
+
+md-tabs.md-dynamic-height md-tabs-content-wrapper,
+md-tab-content.md-no-scroll,
+md-tab-content.md-no-scroll>div,
+.no-scroll {
+    height: 100%;
+    overflow-y: hidden !important;
+}
+
+.scroll {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.tab-content {
+    height: calc(100% - 50px);
+}
+
+.selected {
+    background: #ffc966  !important;
+    outline-color: #cc8400  !important;
+
+}
+
+.selectAll {
+    background: #ffc966  !important;
+    border: solid;
+    border-width: 3px;
+    border-color: darkorange  !important;
+   
+
+
+}
+
+
+
+md-checkbox.md-checked.orange .md-icon {
+ background-color: orange;
+}
+
+
+md-input-container.md-default-theme:not(.md-input-invalid).md-
+input-focused .md-input, md-input-container:not(.md-input-invalid).md-input-focused
+.md-input, md-input-container.md-default-theme:not(.md-input-invalid).md-input-
+resized .md-input, md-input-container:not(.md-input-invalid).md-input-resized .md-
+input{
+    border-color: orange;      
+    
+    
+    }
+
+
+md-input-container:not(.md-input-invalid).md-input-focused label {
+    color:  orange
+}
+
+
+md-input-container:not(.md-input-invalid).md-input-focused .md-datepicker-calendar-icon {
+    color:  orange
+}
+
+
+
+
+
+
+
+.md-default-theme .md-datepicker-open .md-datepicker-calendar-icon, .md-datepicker-open .md-datepicker-calendar-icon {
+    color: orange;
+}
+
+
+.md-calendar-day-header {
+  background-color:orange;
+}
+
+
+.md-default-theme .md-calendar-date.md-calendar-selected-date .md-calendar-date-selection-indicator, .md-calendar-date.md-calendar-selected-date .md-calendar-date-selection-indicator, .md-default-theme .md-calendar-date.md-focus.md-calendar-selected-date .md-calendar-date-selection-indicator, .md-calendar-date.md-focus.md-calendar-selected-date .md-calendar-date-selection-indicator {
+  background: orange;
+
+}
+
+md-option:focus{
+    color: orange;
+   
+}
+
+md-option:focus{
+    color: orange;
+   
+}
+
+
+
+.md-select-value {
+  background-color:orange;
+  border-bottom-color: orange;
+}
+
+
+  md-select:not([disabled]):focus .md-select-value {
+    border-bottom-color: orange;
+    }
+
+    /*
+
+md-tabs.md-default-theme .md-tab.md-active, md-
+tabs .md-tab.md-active, md-tabs.md-default-theme .md-tab.md-
+active md-icon, md-tabs .md-tab.md-active md-icon, md-tabs.md-
+default-theme .md-tab.md-focused, md-tabs .md-tab.md-focused, md-
+tabs.md-default-theme .md-tab.md-focused md-icon, md-tabs .md- 
+tab.md-focused md-icon {
+    color:orange;
+}*/
+
+
+md-tabs.md-default-theme .md-tab.md-active, md-tabs .md-tab.md-active, md-tabs.md-default-theme .md-tab.md-active md-icon, md-tabs .md-tab.md-active md-icon, md-tabs.md-default-theme .md-tab.md-focused, md-tabs .md-tab.md-focused, md-tabs.md-default-theme .md-tab.md-focused md-icon, md-tabs .md-tab.md-focused md-icon {
+    color:orange;
+}
+
+
+/*
+.md-button, .md-button:focus {
+    outline-color: orange;
+}
+*/
+
+
+md-card.md-default-theme, md-card {
+    color: rgba(0,0,0,0.87);
+    background-color: floralwhite;
+    border-radius: 2px;
+}
+
+
+
+
+md-card {
+    width: 25%;;
+}
+
+
+
+.family {
+    fill: darkred !important;
+    height: 35px;
+    width: 35px;
+    
+}
+
+.friends {
+   fill: darkblue   !important;
+    height: 35px;
+    width: 35px;
+}
+
+.fun {
+    fill: limegreen  !important;
+    height: 35px;
+    width: 35px;
+}
+
+.work {
+    fill:  darkgoldenrod   !important;
+    height: 35px;
+    width: 35px;;
+    
+}
+
+.deselectAll {
+    fill: orange !important;
+    background-color: black !important;
+
+}
+
+
+b{color:darkorange;
+  font-size: 18px;
+}
+
+b1{
+    color:darkorange;
+  font-size: 16px;
+}
+
+normal{
+    font-size: 16px;
+}
+
+b2{
+    color:darkorange;
+  font-size: 20px;
+}
+
+
+b3{
+    color:white;
+  font-size: 20px;
+}
+
+
+
+normal2{
+    font-size: 18px;
+    
+}
+
+
+
+.lightblue {
+  background: #DAE1EF; }

@@ -1,0 +1,51 @@
+  <md-content class="md-padding scroll tab-content">
+
+      <md-input-container>
+            <label>Search task:</label>
+            <input type="search" ng-model="customListCtrl.search" placeholder="search task..." aria-label="search tasks" />
+    </md-input-container>
+
+
+
+
+        <md-input-container style="margin-left: 100px;">
+
+            <h3 style="color:orange">Sorting task for: <span class="radioValue">{{ sorting }}</h3>
+
+            <md-radio-group ng-model="sorting">
+            <md-radio-button value="priority">Priority</md-radio-button>  
+            <md-radio-button value="title">Title</md-radio-button>
+            <md-radio-button value="date"> Date</md-radio-button>
+            <md-radio-button value="eworks">Estimated work</md-radio-button>
+
+            </md-radio-group>
+
+        </md-input-container>
+
+                   <md-list>
+                       <md-list-item class="md-2-line" ng-repeat="item in customListCtrl.items | filter: customListCtrl.filterFunction | filter: customListCtrl.search | orderBy:sorting " 
+                       ng-class="{'selected': customListCtrl.selectedItem == item, 'selected': customListCtrl.listSelected.indexOf(item) !=-1,
+                       'selectAll':  customListCtrl.listAll.indexOf(item) != -1 }" ng-click="customListCtrl.toggleSelection(item)">
+
+            
+                         <div class="md-list-item-text">
+        
+                          <md-button ng-click="customListCtrl.changePriority(item)" class="md-icon-button" aria-label="Priority" style="position:absolute; margin-top:15px;margin-left:60px">
+                             <md-icon style="color: green" ng-if="item.priority == -1">low_priority</md-icon>
+                             <md-icon ng-if="item.priority == 0">label</md-icon>
+                             <md-icon style="color: red" ng-if="item.priority == 1">priority_high</md-icon>
+                            </md-button>  
+  
+                                <p> <b1>Title: </b1> <normal> {{item.title}} </normal> </p>
+                              <p><b1> Priority: </b1>
+                              <p><b1> Description: </b1>  <normal>{{item.description}} </normal> </p>
+                                <p><b1> Deadline: </b1> <normal>{{item.date | date: "dd-MM-yyyy"}} </normal></p>
+                                <p> <b1>Done? : </b1> <normal>{{item.done}}</normal></p>
+                                <p> <b1>Estimated work: </b1> <normal>{{item.eworks}} </normal></p>
+                        </div>
+                           <md-checkbox class="orange" ng-model="item.done" ng-change="customListCtrl.checkStateChanged()" class="md-primary md-align-top-right">
+                           </md-checkbox>
+                           <md-divider></md-divider>
+                       </md-list-item>
+                   </md-list>
+ </md-content>

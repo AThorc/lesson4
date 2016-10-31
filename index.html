@@ -3,62 +3,104 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Task App</title>
+    <title> Gestione avanzata dei task </title>
     
     <!-- Angular Material style sheet -->
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles/angular-material.min.css">
+    <link href="styles/icon.css" rel="stylesheet">
     <!-- App Styles -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/style.css">
 
     <!-- Angular Material requires Angular.js Libraries -->
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    <script src="app/angular_material_scripts/angular.min.js"></script>
+    <script src="app/angular_material_scripts/angular-animate.min.js"></script>
+    <script src="app/angular_material_scripts/angular-aria.min.js"></script>
+    <script src="app/angular_material_scripts/angular-messages.min.js"></script>
 
     <!-- Angular Material Library -->
-    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src="app/angular_material_scripts/angular-material.min.js"></script>
 
     <!-- Code Behind -->
-    <script src="script.js"></script>
-    <script src="customList.directive.js"></script>
-    <script src="storageService.js"></script>
+    <script src="app/todoApp.module.js"></script>
+    <script src="app/todo.controller.js"></script>
+    <script src="app/storage.service.js"></script>
+    <!-- <script src="app/customSearch.filter.js"></script>  -->
+    <script src="app/components/customList.directive.js"></script>
+    <script src="app/components/customCard.directive.js"></script>
+    <script src="app/components/customGrid.directive.js"></script>
+
+
+
+
 
 </head>
 
 <body ng-app="todoApp" class="no-scroll">
     <div ng-controller="TodoController as ctrl" class="no-scroll">
         <div layout="column" class="no-scroll">
-            <md-toolbar class="md-whiteframe-3dp">
+            <md-toolbar class="md-whiteframe-3dp" style=background-color:orange>
                 <div class="md-toolbar-tools">
                     <h2>
-                        <span>Task App</span>
-                        prova
+                        <span>Task App - Alessandro Torcetta</span>
                     </h2>
                     <span flex></span>
-                    <md-button ng-disabled="ctrl.selectedItem == null" ng-click="ctrl.deleteItem()" class="md-icon-button" aria-label="Delete">
+
+                    <md-button  ng-click="ctrl.toggleAll($event)" class="md-icon-button" aria-label="All">
+                         <md-icon  md-svg-src="/Icons_tag/selectAll.svg"  ng-class="{'deselectAll': ctrl.checkAll != 0 && ctrl.listAll.length != 0}"></md-icon>
+                    </md-button>
+
+                    <md-button ng-disabled="ctrl.selectedItem == null || ctrl.listSelected.length > 1 || ctrl.listAll.length >1" ng-click="ctrl.updateItem($event)" class="md-icon-button" aria-label="Update">
+                        <md-icon> update </md-icon>
+                    </md-button>
+
+
+            <!--    {{ctrl.auxLength}}  -->
+
+                    <md-button ng-disabled="(ctrl.auxLength || ctrl.selectedItem ) == null" ng-click="ctrl.deleteItem($event)" class="md-icon-button" aria-label="Delete">
                         <md-icon> delete </md-icon>
                     </md-button>
                 </div>
             </md-toolbar>
             <md-content class="no-scroll">
                 <md-tabs md-dynamic-height md-border-bottom class="no-scroll">
+
+
+                     <md-tab label="Grid">
+                       <!-- <custom-list items="ctrl.items" selected-item="ctrl.selectedItem" filter-function="ctrl.all"></custom-list> -->
+                     <custom-grid items="ctrl.items"  selected-item="ctrl.selectedItem" filter-function="ctrl.all" list-all="ctrl.listAll" list-selected="ctrl.listSelected"
+                     update="ctrl.updateItem" delete="ctrl.deleteItem" ></custom-grid>
+
+                   </md-tab>
+
+
+                      <md-tab label="Cards">
+                       <!-- <custom-list items="ctrl.items" selected-item="ctrl.selectedItem" filter-function="ctrl.all"></custom-list> -->
+                     <custom-card items="ctrl.items"  selected-item="ctrl.selectedItem" filter-function="ctrl.all" list-all="ctrl.listAll" list-selected="ctrl.listSelected"
+                        update="ctrl.updateItem" delete="ctrl.deleteItem" ></custom-card>
+
+                   </md-tab>
+
+
                     <md-tab label="Todo">
-                        <custom-list items="ctrl.items" selected-item="ctrl.selectedItem" filter-function="ctrl.notDone"></custom-list>
+                        <custom-list items="ctrl.items" selected-item="ctrl.selectedItem" filter-function="ctrl.notDone" list-all="ctrl.listAll" list-selected="ctrl.listSelected"
+                        update="ctrl.updateItem" delete="ctrl.deleteItem" ></custom-list>
                     </md-tab>
                     <md-tab label="Done">
-                        <custom-list items="ctrl.items" selected-item="ctrl.selectedItem" filter-function="ctrl.done"></custom-list>
+                        <custom-list items="ctrl.items" selected-item="ctrl.selectedItem" filter-function="ctrl.done" list-all="ctrl.listAll" list-selected="ctrl.listSelected"  
+                        update="ctrl.updateItem" delete="ctrl.deleteItem"></custom-list>
                     </md-tab>
                     <md-tab label="All">
-                        <custom-list items="ctrl.items" selected-item="ctrl.selectedItem" filter-function="ctrl.all"></custom-list>
+                        <custom-list items="ctrl.items" selected-item="ctrl.selectedItem" filter-function="ctrl.all" list-all="ctrl.listAll" list-selected="ctrl.listSelected"  
+                        update="ctrl.updateItem" delete="ctrl.deleteItem" ></custom-list>
                     </md-tab>
+                    
+                
                 </md-tabs>
-                <md-button class="md-fab md-primary add-button" aria-label="Add Todo" ng-click="ctrl.addTask($event)">
+                <md-button class="md-fab md-primary add-button" aria-label="Add Todo" ng-click="ctrl.addTask($event)" style="background-color:orange">
                     <md-icon>add</md-icon>
                 </md-button>
             </md-content>
-
+        </div>
         </div>
 </body>
 

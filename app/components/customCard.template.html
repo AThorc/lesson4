@@ -1,0 +1,71 @@
+
+ <md-content class="md-padding scroll tab-content">
+
+
+      <md-input-container>
+            <label>Search task:</label>
+            <input type="search" ng-model="customCardCtrl.search" placeholder="search task..." aria-label="search tasks" />
+
+      </md-input-container>
+
+
+
+
+  <md-input-container style="margin-left: 100px;">
+
+     <h3 style="color:orange">Sorting task for: <span class="radioValue">{{ sorting }}</h3>
+
+    <md-radio-group ng-model="sorting">
+
+      <md-radio-button value="priority">Priority</md-radio-button>  
+      <md-radio-button value="title">Title</md-radio-button>
+      <md-radio-button value="date"> Date</md-radio-button>
+      <md-radio-button value="eworks">Estimated work</md-radio-button>
+
+    </md-radio-group>
+
+ </md-input-container>
+
+
+
+
+        <md-card md-theme="" md-theme-watch="" ng-repeat="item in customCardCtrl.items | filter: customCardCtrl.filterFunction | filter: customCardCtrl.search | orderBy:sorting " 
+        ng-class="{'selected': customCardCtrl.selectedItem == item, 'selected': customCardCtrl.listSelected.indexOf(item) !=-1,
+                       'selectAll':  customCardCtrl.listAll.indexOf(item) != -1 }" ng-click="customCardCtrl.toggleSelection(item)">
+                         
+
+                       <md-card-title>
+                           <md-toolbar style ="background-color:#FFE4B2">
+                                 <div class="md-toolbar-tools">
+                            <md-card-title-text>
+                                <span class="md-headline"> {{item.title}}</span>
+                            </md-card-title-text>
+                             <md-icon ng-if="item.tags.family==true" md-svg-src="/Icons_tag/family.svg" class="family"></md-icon>
+                            <md-icon  ng-if="item.tags.friends==true" md-svg-src="/Icons_tag/friends.svg" class="friends"></md-icon>
+                            <md-icon ng-if="item.tags.work==true" md-svg-src="/Icons_tag/work.svg" class="work "></md-icon>
+                            <md-icon ng-if="item.tags.fun==true" md-svg-src="/Icons_tag/fun.svg"  class="fun" ></md-icon>
+                                 </div>
+                           </md-toolbar>
+                       </md-card-title>
+                       <md-card-content layout="row" layout-align="space-between">
+                           <md-card-actions layout="column">
+                                  <md-button ng-click="customCardCtrl.changePriority(item)" class="md-icon-button" aria-label="Priority" 
+                                  style="position:absolute;margin-top:9px;margin-left:70px">
+                                      <md-icon style="color: green" ng-if="item.priority == -1">low_priority</md-icon>
+                                      <md-icon ng-if="item.priority == 0">label</md-icon>
+                                          <md-icon style="color: red" ng-if="item.priority == 1">priority_high</md-icon>
+                                                    </md-button>
+                                <p> <b>Priority: </b></p>
+                                <p><b> Description: </b> {{item.description}} </p>
+                                <p><b> Deadline: </b>{{item.date | date: "dd-MM-yyyy"}}</p>
+                                <p> <b>Done : </b><md-checkbox class="orange"
+                                                ng-model="item.done" ng-change="customGridCtrl.checkStateChanged()"
+                                                >
+                                        </md-checkbox> </p>
+                                <p> <b>Estimated work: </b>{{item.eworks}} </p>
+
+
+                 </md-card-actions>
+             </md-card-content>
+      </md-card>
+ </md-content>
